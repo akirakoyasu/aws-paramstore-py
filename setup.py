@@ -1,5 +1,4 @@
 from setuptools import setup, find_packages
-# To use a consistent encoding
 from codecs import open
 from os import path
 
@@ -34,7 +33,7 @@ setup(
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#summary
-    description='tools for AWS System Manager Parameter Store',  # Required
+    description='Query params from AWS System Manager Parameter Store',  # Required
 
     # This is an optional longer description of your project that represents
     # the body of text which users will see when they visit PyPI.
@@ -50,7 +49,7 @@ setup(
     #
     # This field corresponds to the "Home-Page" metadata field:
     # https://packaging.python.org/specifications/core-metadata/#home-page-optional
-    url='https://github.com/wizpra/aws-paramstore-py',  # Optional
+    url='https://github.com/akirakoyasu/aws-paramstore-py',  # Optional
 
     # This should be your name or the name of the organization which owns the
     # project.
@@ -73,7 +72,7 @@ setup(
 
         # Indicate who your project is intended for
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
+        'Topic :: Software Development :: Libraries :: Python Modules',
 
         # Pick your license as you wish
         'License :: OSI Approved :: MIT License',
@@ -149,7 +148,7 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         'console_scripts': [
-            'pspy=aws_paramstore_py:main',
+            'aws-pspy=aws_paramstore_py:main',
         ],
     },
 )
