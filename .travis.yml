@@ -4,18 +4,26 @@ python:
   - "3.5"
   - "3.6"
 
-addons:
-  apt:
-    packages:
-      - pandoc
-
 install:
   - true
 script:
-  - ./scripts/build.sh
+  - ./scripts/spec.sh
 
 jobs:
   include:
-    - stage: deploy
-      script: echo Deploy
+    - if: tag IS present
+      stage: PyPI Release
       python: 3.6
+      env:
+        - TWINE_USERNAME: akirakoyasu
+        - secure: "kqZvax6s1naQ9UHwQ8MSKHUr/939POAobNpMqHy1bgtjXWX+gPpRYg/gYx+7bK89VHNNakNn3H7GMYRFQlrBHCoqnP3DMavpXNyqB2mc/wuRRxfSNwl9b30Uw5knSbRtHClS3UacKG5/VVPeo4MafK7vGvqNH85TY10BP06c6Td2jD7cn0SkKkacOOxttKN9YNQ6TZRbttHIFBavaVMBVenhR53oWj7p9wF2EM/qxtl4gQ5Y/I1tgAmRd7X1hEPjTmCGHK5OPB9vY6JD+/ojkevjJei9SP39WwRVCvqFmycsWD75h3Z3up7hlJ3kwf94mKybcyPfJgVc/JDif2JQxwKiFEEkWXErBwtQMns2OV/7rRv/nvwTiciTMZm4ZqzvwEI4mzPvlF8KvobC5Y9fcSpvBT3r6mAlfwy+2oKBpYwVF2MZap8dl3XT95l4ZLT5+2F9SvFR0fpQK4XvrA6W7xT9vxoM1/v9tMZepCDnYoCASPd4vn1rjxBFYdzTv8P7bxrhOGNnKXUs+J5sFwyx5lSqehSXOrnwktheHak/7LLDPoRwa2h6tf8Pori1dE8uVJUnYLSsYSUgKmZphR+QiJXGJrDE+zo6gVx/wBlAWR9qrkiq0njuPa4hTuKhLPcpyy+WgtlbEpa2FQD76hpibFvb5HAfsPTl40PItR6iURw="
+      addons:
+        apt:
+          packages:
+            - pandoc
+      install: pip install twine
+      script: ./scripts/build.sh
+      deploy:
+        provider: script
+        script: twine upload dist/*
+        skip_cleanup: true
