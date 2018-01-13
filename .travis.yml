@@ -27,3 +27,5 @@ jobs:
         provider: script
         script: twine upload dist/*
         skip_cleanup: true
+        on:
+          tags: true
