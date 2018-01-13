@@ -1,5 +1,7 @@
 # aws-paramstore-py
 
+[![Build Status](https://travis-ci.org/akirakoyasu/aws-paramstore-py.svg?branch=master)](https://travis-ci.org/akirakoyasu/aws-paramstore-py)
+
 Query params from AWS System Manager Parameter Store
 
 ## Install
