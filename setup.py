@@ -102,6 +102,14 @@ setup(
     #
     packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
 
+    # If your project only runs on certain Python versions, setting the python
+    # requires argument to the appropriate PEP 440 version specifier string will
+    # prevent pip from installing the project on other Python versions.
+    #
+    # For example, if your package is for Python 3+ only, write:
+    # python_requires='>=3'
+    python_requires='>=3',  # Optional
+
     # This field lists other packages that your project depends on to run.
     # Any package you put here will be installed by pip when your project is
     # installed, so they must be valid existing projects.
