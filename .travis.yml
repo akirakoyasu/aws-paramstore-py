@@ -16,6 +16,15 @@ script:
 
 jobs:
   include:
-    - stage: deploy
-      script: echo Deploy
+    - stage: PyPI Release
+      script: echo "Uploading to PyPI ..."
       python: 3.6
+      deploy:
+        provider: pypi
+        user: akirakoyasu
+        password:
+          secure: "T/FCvtdKrK7QSRucqK9y0UCU5oVCjIqNM1tTnvVMOrJLQnrOGGJegzW25VryyWCsf1ati1IvxhLhudrUV7iOazcxlbu565+ILR40CsxBCEVLO7ijQ+EX6AiPavITMSxC+NNSDRDHhTDS6WYJQiKyOOIwd3KVcxvb2bfUyPYNc/oJ0jFaAR6xRS5qdN1p+47ZjXGatIkdedwYnIq33W1KlR24zy26iW7Mvkx6M5vyX09Ebby7r6w8za8tsUEvvF6KB06pWM7ccAFv2Q9U/GR0vggzegJsIw1jR3H7xBJTuwpLBRsxH6zJf5Y33Mil9w6/CY+UIiJrrMm1ncnsyRBxqlBYtKbueD3Nli5NxYYAAW/YAvn7TZiipKhMM2jBP+1rOf3GNmEB9u2r+4Pz/khFVuEGxH2hduAX/OBC7MIeWbYLs1obP6rUd2djJJSVSxWGiFktEfJrbRyGz9IwcS9DTV6Q7x7t3YgJKKtA8nkEAoDcSBAHVFloNKvQTEeUTlJrUox9iBKpxSWWOGEK4ZRppnGxzBpDTQOM5VrHKsfLmKMg77vj+LpRvqxZhAnj+D0+LtqBH2i6TFjzElJy4VY/6jyTFOiVQePJYcyM/CZ6KjZX+C0T437Sv47pVMIdFatv0WppPovNraUKUSo38O4ypQUhCFevNTi4ZcHOzBfY1ak="
+        distributions: "bdist_wheel"
+        skip_cleanup: true
+        on:
+          all_branches: true
