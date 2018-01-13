@@ -5,8 +5,12 @@ from os import path
 here = path.abspath(path.dirname(__file__))
 
 # Get the long description from the README file
-with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
-    long_description = f.read()
+readme = path.join(here, 'README.rst')
+if path.exists(readme):
+    with open(readme, encoding='utf-8') as f:
+        long_description = f.read()
+else:
+    long_description = ''
 
 setup(
     # This is the name of your project. The first time you publish this
@@ -28,7 +32,7 @@ setup(
     # For a discussion on single-sourcing the version across setup.py and the
     # project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.0.3',  # Required
+    version='0.0.4',  # Required
 
     # This is a one-line description or tagline of what your project does. This
     # corresponds to the "Summary" metadata field:
@@ -100,7 +104,7 @@ setup(
     #
     #   py_modules=["my_module"],
     #
-    packages=find_packages(exclude=['contrib', 'docs', 'tests']),  # Required
+    packages=find_packages(exclude=['spec']),  # Required
 
     # If your project only runs on certain Python versions, setting the python
     # requires argument to the appropriate PEP 440 version specifier string will
@@ -156,7 +160,15 @@ setup(
     # executes the function `main` from this package when invoked:
     entry_points={  # Optional
         'console_scripts': [
-            'aws-pspy=aws_paramstore_py:main',
+            'aws-pspy=aws_paramstore_py:cli',
         ],
     },
+
+    # A string naming a unittest.TestCase subclass (or a package or module containing
+    # one or more of them, or a method of such a subclass), or naming a function that
+    # can be called with no arguments and returns a unittest.TestSuite. If the named
+    # suite is a module, and the module has an additional_tests() function, it is called
+    # and the results are added to the tests to be run. If the named suite is a package,
+    # any submodules and subpackages are recursively added to the overall test suite.
+    test_suite='spec',
 )
