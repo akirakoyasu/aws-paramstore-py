@@ -1,0 +1,21 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+addons:
+  apt:
+    packages:
+      - pandoc
+
+install:
+  - true
+script:
+  - ./scripts/build.sh
+
+jobs:
+  include:
+    - stage: deploy
+      script: echo Deploy
+      python: 3.6
