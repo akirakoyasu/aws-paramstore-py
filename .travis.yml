@@ -13,3 +13,9 @@ install:
   - true
 script:
   - ./scripts/build.sh
+
+jobs:
+  include:
+    - stage: deploy
+      script: echo Deploy
+      python: 3.6
