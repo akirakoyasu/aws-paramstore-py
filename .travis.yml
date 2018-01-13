@@ -4,20 +4,19 @@ python:
   - "3.5"
   - "3.6"
 
-addons:
-  apt:
-    packages:
-      - pandoc
-
 install:
   - true
 script:
-  - ./scripts/build.sh
+  - ./scripts/spec.sh
 
 jobs:
   include:
     - stage: PyPI Release
-      script: echo "Uploading to PyPI ..."
+      addons:
+        apt:
+          packages:
+            - pandoc
+      script: ./scripts/build.sh
       python: 3.6
       deploy:
         provider: pypi
