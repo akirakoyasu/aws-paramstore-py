@@ -32,7 +32,7 @@ md2rst() {
 
 build() {
   cd "${project_root}"
-  python3 setup.py bdist_wheel
+  python3 setup.py clean --all bdist_wheel
   cd -
 }
 
