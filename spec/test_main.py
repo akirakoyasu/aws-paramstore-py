@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch
+from unittest.mock import call, patch
 
 import aws_paramstore_py as paramstore
 
@@ -62,3 +62,34 @@ class TestMain(unittest.TestCase):
         paramstore.get('path/to/params', decryption=True)
 
         method.assert_called_with(Path='/path/to/params/', Recursive=True, WithDecryption=True)
+
+    def test_get_with_next_token(self, mock):
+        method = mock.client('ssm').get_parameters_by_path
+        method.side_effect = [{
+            'Parameters': [
+                {'Name': '/path/to/params/key1', 'Value': "value1"}
+            ],
+            'NextToken': 'ThisIsNextToken1'
+        }, {
+            'Parameters': [
+                {'Name': '/path/to/params/key2', 'Value': "value2"}
+            ],
+            'NextToken': 'ThisIsNextToken2'
+        }, {
+            'Parameters': [
+                {'Name': '/path/to/params/key3', 'Value': "value3"}
+            ]
+        }]
+
+        params = paramstore.get('path/to/params')
+
+        method.assert_has_calls([
+            call(Path='/path/to/params/', Recursive=True, WithDecryption=False),
+            call(Path='/path/to/params/', Recursive=True, WithDecryption=False, NextToken='ThisIsNextToken1'),
+            call(Path='/path/to/params/', Recursive=True, WithDecryption=False, NextToken='ThisIsNextToken2')
+        ])
+        self.assertDictEqual({
+            "key1": "value1",
+            "key2": "value2",
+            "key3": "value3"
+        }, params)
